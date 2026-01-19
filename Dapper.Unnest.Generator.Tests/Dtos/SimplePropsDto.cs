@@ -1,9 +1,7 @@
-using Dapper.Unnest.Generator;
-
-namespace Dapper.Unnest.Generator.Tests;
+namespace Dapper.Unnest.Generator.Tests.Dtos;
 
 [Unnestable]
-public class TestItem2
+public class SimplePropsDto
 {
     public int IntProp { get; set; }
     public string StringProp { get; set; } = string.Empty;

@@ -1,6 +1,4 @@
-namespace Dapper.Unnest.Generator;
+namespace Dapper.Unnest;
 
-[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-public sealed class UnnestableAttribute : Attribute
-{
-}
+[AttributeUsage(AttributeTargets.Class, Inherited = false)]
+public sealed class UnnestableAttribute : Attribute;
