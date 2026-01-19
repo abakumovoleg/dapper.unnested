@@ -87,7 +87,12 @@ public static class {className}UnnestExtensions
         var unnestedClassName = $"{className}Unnested";
 
         var arrays = string.Join("\n", classToGenerate.Properties.Select(p =>
-            $"        var {p.Name.ToLower()}Array = new {p.Type}[count];"));
+        {
+            var isArray = p.Type.EndsWith("[]");
+            var elementType = isArray ? p.Type.Replace("[]", "") : p.Type;
+            var arrayDecl = isArray ? $"{elementType}[count][]" : $"{p.Type}[count]";
+            return $"        var {p.Name.ToLower()}Array = new {arrayDecl};";
+        }));
 
         var adds = string.Join("\n", classToGenerate.Properties.Select(p =>
             $"            {p.Name.ToLower()}Array[i] = item.{p.Name};"));
