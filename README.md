@@ -1,4 +1,4 @@
-# Dapper.Unnest.Generator
+# Unnestable
 
 [![NuGet](https://img.shields.io/nuget/v/Unnestable.svg)](https://www.nuget.org/packages/Unnestable/)
 [![NuGet](https://img.shields.io/nuget/dt/Unnestable.svg)](https://www.nuget.org/packages/Unnestable/)
