@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
 
     <!-- NuGet Package Properties -->
-    <PackageId>Dapper.Unnest</PackageId>
-    <Version>1.0.0</Version>
+    <PackageId>DapperExtensions.Unnest</PackageId>
+    <Version>1.0.1</Version>
     <Authors>abakumovoleg</Authors>
     <Company>abakumovoleg</Company>
     <Description>A C# source generator that automatically generates extension methods to "unnest" collections of objects into arrays for each property. This is particularly useful for Dapper bulk operations where you need to pass arrays of values for each column.</Description>
