@@ -36,7 +36,8 @@ public class UnnestGenerator : IIncrementalGenerator
             foreach (var attribute in attributeList.Attributes)
             {
                 var attributeName = attribute.Name.ToString();
-                if (attributeName == "Unnestable" || attributeName == "UnnestableAttribute")
+                if (attributeName == "Unnestable" || attributeName == "UnnestableAttribute" ||
+                    attributeName == "Unnested" || attributeName == "UnnestedAttribute")
                 {
                     var semanticModel = context.SemanticModel;
                     var typeSymbol = semanticModel.GetDeclaredSymbol(typeDeclaration);
@@ -80,7 +81,7 @@ public class UnnestGenerator : IIncrementalGenerator
     private static void Execute(SourceProductionContext context, ClassToGenerate classToGenerate)
     {
         var source = GenerateSource(classToGenerate);
-        context.AddSource($"{classToGenerate.Name}Unnested.g.cs", source);
+        context.AddSource($"{classToGenerate.Name}Unnestable.g.cs", source);
     }
 
     private static string GenerateSource(ClassToGenerate classToGenerate)
@@ -92,7 +93,7 @@ public class UnnestGenerator : IIncrementalGenerator
                 $"    public {p.Type}[] {p.Name} {{ get; set; }} = Array.Empty<{p.Type}>();"));
 
         var className = classToGenerate.Name;
-        var unnestedClassName = $"{className}Unnested";
+        var unnestableClassName = $"{className}Unnestable";
 
         var arrayDeclarations = string.Join("\n",
             classToGenerate.Properties.Select(p =>
@@ -116,14 +117,14 @@ public class UnnestGenerator : IIncrementalGenerator
 
                  namespace {{classToGenerate.Namespace}};
 
-                 {{classModifiers}} sealed class {{unnestedClassName}}
+                 {{classModifiers}} sealed class {{unnestableClassName}}
                  {
                  {{propertiesCode}}
                  }
 
                  {{classModifiers}} static class {{className}}UnnestExtensions
                  {
-                     public static {{unnestedClassName}} ToUnnested(this System.Collections.Generic.IEnumerable<{{className}}> source, int count)
+                     public static {{unnestableClassName}} ToUnnestable(this System.Collections.Generic.IEnumerable<{{className}}> source, int count)
                      {
                  {{arrayDeclarations}}
 
@@ -135,17 +136,17 @@ public class UnnestGenerator : IIncrementalGenerator
 
                              i++;
                          }
-                     
-                         var result = new {{unnestedClassName}}();
+
+                         var result = new {{unnestableClassName}}();
 
                  {{resultAssignments}}
 
                          return result;
                      }
 
-                     public static {{unnestedClassName}} ToUnnested(this System.Collections.Generic.IReadOnlyCollection<{{className}}> source)
+                     public static {{unnestableClassName}} ToUnnestable(this System.Collections.Generic.IReadOnlyCollection<{{className}}> source)
                      {
-                         return source.ToUnnested(source.Count);
+                         return source.ToUnnestable(source.Count);
                      }
                  }
                  """;

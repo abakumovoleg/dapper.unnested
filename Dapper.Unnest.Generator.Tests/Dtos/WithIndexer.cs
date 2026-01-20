@@ -4,7 +4,7 @@ namespace Dapper.Unnest.Generator.Tests.Dtos;
 public class WithIndexer
 {
     // Обычное свойство
-    public string Value { get; set; }
+    public required string Value { get; set; }
     
     // Индексатор - это особый вид свойства
     // По текущей логике генератора он будет отфильтрован,

@@ -6,7 +6,7 @@ namespace Dapper.Unnest.Generator.Tests;
 public class ExtensionTests
 {
     [Fact]
-    public void ToUnnested_WithVariousTypes()
+    public void ToUnnestable_WithVariousTypes()
     {
         // Arrange
         var items = new[]
@@ -16,7 +16,7 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.IntProp.Should().Equal(1, 2);
@@ -27,7 +27,7 @@ public class ExtensionTests
     }
 
     [Fact]
-    public void ToUnnested_WithArrays()
+    public void ToUnnestable_WithArrays()
     {
         // Arrange
         var items = new[]
@@ -37,21 +37,21 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.IntArray.Should().BeEquivalentTo(new[] { new[] { 1, 2 }, new[] { 3, 4 } });
         result.StringArray.Should().BeEquivalentTo(new[] { new[] { "a", "b" }, new[] { "c", "d" } });
     }
-    
+
     [Fact]
-    public void ToUnnested_EmptyCollection_ReturnsEmptyArrays()
+    public void ToUnnestable_EmptyCollection_ReturnsEmptyArrays()
     {
         // Arrange
         var items = Array.Empty<SimplePropsDto>();
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.IntProp.Should().BeEmpty();
@@ -61,7 +61,7 @@ public class ExtensionTests
     }
 
     [Fact]
-    public void ToUnnested_SingleItem()
+    public void ToUnnestable_SingleItem()
     {
         // Arrange
         var items = new[]
@@ -70,7 +70,7 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.IntProp.Should().ContainSingle().Which.Should().Be(42);
@@ -78,20 +78,20 @@ public class ExtensionTests
     }
     
     [Fact]
-    public void ToUnnested_LargeCollection()
+    public void ToUnnestable_LargeCollection()
     {
         // Arrange
         const int count = 10000;
         var items = Enumerable.Range(1, count)
-            .Select(i => new SimplePropsDto 
-            { 
-                IntProp = i, 
-                StringProp = $"Item_{i}" 
+            .Select(i => new SimplePropsDto
+            {
+                IntProp = i,
+                StringProp = $"Item_{i}"
             })
             .ToList();
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.IntProp.Should().HaveCount(count);
@@ -100,7 +100,7 @@ public class ExtensionTests
     }
 
     [Fact]
-    public void ToUnnested_WithNullValues()
+    public void ToUnnestable_WithNullValues()
     {
         // Arrange
         var items = new[]
@@ -110,15 +110,15 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.StringProp[0].Should().BeNull();
         result.StringProp[1].Should().Be("not null");
     }
-    
+
     [Fact]
-    public void ToUnnested_FromList()
+    public void ToUnnestable_FromList()
     {
         // Arrange
         var items = new List<SimplePropsDto>
@@ -128,14 +128,14 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.IntProp.Should().HaveCount(2);
     }
 
     [Fact]
-    public void ToUnnested_FromReadOnlyCollection()
+    public void ToUnnestable_FromReadOnlyCollection()
     {
         // Arrange
         IReadOnlyCollection<SimplePropsDto> items = new List<SimplePropsDto>
@@ -145,14 +145,14 @@ public class ExtensionTests
         }.AsReadOnly();
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.IntProp.Should().HaveCount(2);
     }
 
     [Fact]
-    public void ToUnnested_FromHashSet()
+    public void ToUnnestable_FromHashSet()
     {
         // Arrange
         var items = new HashSet<SimplePropsDto>
@@ -162,26 +162,26 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested(items.Count);
+        var result = items.ToUnnestable(items.Count);
 
         // Assert
         result.IntProp.Should().HaveCount(2);
     }
-    
+
     [Fact]
-    public void ToUnnested_WithComplexTypes()
+    public void ToUnnestable_WithComplexTypes()
     {
         // Arrange
         var items = new[]
         {
-            new ComplexDto 
-            { 
+            new ComplexDto
+            {
                 DateTimeProp = new DateTime(2024, 1, 1),
                 GuidProp = Guid.NewGuid(),
                 Nested = new NestedClass { Value = "test" }
             },
-            new ComplexDto 
-            { 
+            new ComplexDto
+            {
                 DateTimeProp = new DateTime(2024, 1, 2),
                 GuidProp = Guid.NewGuid(),
                 Nested = new NestedClass { Value = "test2" }
@@ -189,7 +189,7 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.DateTimeProp[0].Should().Be(items[0].DateTimeProp);
@@ -198,33 +198,33 @@ public class ExtensionTests
     }
 
     [Fact]
-    public void ToUnnested_WithValueTypes()
+    public void ToUnnestable_WithValueTypes()
     {
         // Arrange
         var items = new[]
         {
-            new StructDto 
-            { 
+            new StructDto
+            {
                 Point = new Point(1, 2),
                 TimeSpan = TimeSpan.FromHours(1)
             },
-            new StructDto 
-            { 
+            new StructDto
+            {
                 Point = new Point(3, 4),
                 TimeSpan = TimeSpan.FromHours(2)
             }
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.Point[0].Should().Be(new Point(1, 2));
         result.TimeSpan[0].Should().Be(TimeSpan.FromHours(1));
     }
-    
+
     [Fact]
-    public void ToUnnested_IgnoresNonPublicProperties()
+    public void ToUnnestable_IgnoresNonPublicProperties()
     {
         // Arrange
         var items = new[]
@@ -234,14 +234,14 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.PublicProp.Should().HaveCount(2).And.ContainInOrder(1, 2);
     }
 
     [Fact]
-    public void ToUnnested_WithIndexers()
+    public void ToUnnestable_WithIndexers()
     {
         // Arrange
         var items = new[]
@@ -251,39 +251,39 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.Value.Should().HaveCount(2).And.ContainInOrder("a", "b");
     }
 
     [Fact]
-    public void ToUnnested_WithNullableReferenceTypes()
+    public void ToUnnestable_WithNullableReferenceTypes()
     {
         // Arrange
         var items = new[]
         {
-            new NullableDto { 
+            new NullableDto {
                 RequiredString = "required",
-                OptionalString = null 
+                OptionalString = null
             },
-            new NullableDto { 
+            new NullableDto {
                 RequiredString = "required2",
-                OptionalString = "optional" 
+                OptionalString = "optional"
             }
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.RequiredString.Should().Equal("required", "required2");
         result.OptionalString[0].Should().BeNull();
         result.OptionalString[1].Should().Be("optional");
     }
-    
+
     [Fact]
-    public void ToUnnested_WithRecordClass()
+    public void ToUnnestable_WithRecordClass()
     {
         // Arrange
         var items = new[]
@@ -293,16 +293,16 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.Id.Should().Equal(1, 2);
         result.Name.Should().Equal("Test1", "Test2");
         result.Value.Should().Equal(100, 200);
     }
-    
+
     [Fact]
-    public void ToUnnested_WithRecordWithNullableProperties()
+    public void ToUnnestable_WithRecordWithNullableProperties()
     {
         // Arrange
         var items = new[]
@@ -312,7 +312,7 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.Id.Should().Equal(1, 2);
@@ -321,9 +321,9 @@ public class ExtensionTests
         result.Value[0].Should().Be(10);
         result.Value[1].Should().BeNull();
     }
-    
+
     [Fact]
-    public void ToUnnested_WithRecordWithMixedProperties()
+    public void ToUnnestable_WithRecordWithMixedProperties()
     {
         // Arrange
         var items = new[]
@@ -333,7 +333,7 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         // Assert
         result.Id.Should().Equal(1, 2);
@@ -342,7 +342,7 @@ public class ExtensionTests
     }
 
     [Fact]
-    public void ToUnnested_WithRecordWithReadOnlyProperties()
+    public void ToUnnestable_WithRecordWithReadOnlyProperties()
     {
         // Arrange
         var items = new[]
@@ -352,7 +352,7 @@ public class ExtensionTests
         };
 
         // Act
-        var result = items.ToUnnested();
+        var result = items.ToUnnestable();
 
         result.Id.Should().Equal(1, 2);
         result.Computed.Should().Equal("Value1", "Value2");

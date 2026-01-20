@@ -11,7 +11,7 @@ public struct Point
         Y = y;
     }
     
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return obj is Point other && X == other.X && Y == other.Y;
     }

@@ -31,8 +31,8 @@ The package includes both the attribute library and the source generator.
 
 1. Mark your class/record with the `[Unnestable]` attribute
 2. The source generator automatically creates:
-   - A `{YourType}Unnested` class with array properties for each public property
-   - Extension methods `ToUnnested()` on `IEnumerable<YourType>` and `IReadOnlyCollection<YourType>`
+   - A `{YourType}Unnestable` class with array properties for each public property
+   - Extension methods `ToUnnestable()` on `IEnumerable<YourType>` and `IReadOnlyCollection<YourType>`
 
 ## Usage
 
@@ -59,11 +59,11 @@ class Program
             new Product { Id = 2, Name = "Mouse", Price = 29.99m },
         };
 
-        var unnested = products.ToUnnested();
+        var unnestable = products.ToUnnestable();
 
-        // unnested.Id contains [1, 2]
-        // unnested.Name contains ["Laptop", "Mouse"]
-        // unnested.Price contains [999.99m, 29.99m]
+        // unnestable.Id contains [1, 2]
+        // unnestable.Name contains ["Laptop", "Mouse"]
+        // unnestable.Price contains [999.99m, 29.99m]
     }
 }
 ```
@@ -81,7 +81,7 @@ public class User
 
 public async Task BulkInsertUsers(IEnumerable<User> users)
 {
-    var unnested = users.ToUnnested();
+    var unnestable = users.ToUnnestable();
 
     using var connection = new SqlConnection(connectionString);
     await connection.ExecuteAsync(@"
@@ -90,9 +90,9 @@ public async Task BulkInsertUsers(IEnumerable<User> users)
         FROM UNNEST(@Email, @Name, @CreatedAt) AS u(Email, Name, CreatedAt)",
         new
         {
-            Email = unnested.Email,
-            Name = unnested.Name,
-            CreatedAt = unnested.CreatedAt
+            Email = unnestable.Email,
+            Name = unnestable.Name,
+            CreatedAt = unnestable.CreatedAt
         });
 }
 ```
@@ -132,10 +132,10 @@ var orders = new[]
     new Order { OrderId = 2, Tags = ["normal"], Categories = ["books", "fiction"] }
 };
 
-var unnested = orders.ToUnnested();
-// unnested.OrderId: [1, 2]
-// unnested.Tags: [["urgent", "priority"], ["normal"]]
-// unnested.Categories: [["electronics"], ["books", "fiction"]]
+var unnestable = orders.ToUnnestable();
+// unnestable.OrderId: [1, 2]
+// unnestable.Tags: [["urgent", "priority"], ["normal"]]
+// unnestable.Categories: [["electronics"], ["books", "fiction"]]
 ```
 
 ### Records and Structs
@@ -179,7 +179,7 @@ public class Item
 The generator produces:
 
 ```csharp
-public sealed class ItemUnnested
+public sealed class ItemUnnestable
 {
     public int[] Id { get; set; } = Array.Empty<int>();
     public string[] Name { get; set; } = Array.Empty<string>();
@@ -187,7 +187,7 @@ public sealed class ItemUnnested
 
 public static class ItemUnnestExtensions
 {
-    public static ItemUnnested ToUnnested(this System.Collections.Generic.IEnumerable<Item> source, int count)
+    public static ItemUnnestable ToUnnestable(this System.Collections.Generic.IEnumerable<Item> source, int count)
     {
         var idArray = new int[count];
         var nameArray = new string[count];
@@ -200,16 +200,16 @@ public static class ItemUnnestExtensions
             i++;
         }
 
-        var result = new ItemUnnested();
+        var result = new ItemUnnestable();
         result.Id = idArray;
         result.Name = nameArray;
 
         return result;
     }
 
-    public static ItemUnnested ToUnnested(this System.Collections.Generic.IReadOnlyCollection<Item> source)
+    public static ItemUnnestable ToUnnestable(this System.Collections.Generic.IReadOnlyCollection<Item> source)
     {
-        return source.ToUnnested(source.Count);
+        return source.ToUnnestable(source.Count);
     }
 }
 ```
