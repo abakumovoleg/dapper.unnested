@@ -7,11 +7,29 @@
         <Nullable>enable</Nullable>
         <IsAnalyzer>true</IsAnalyzer>
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+
+        <!-- NuGet Package Properties for Analyzer -->
+        <PackageId>Dapper.Unnest.Generator</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>abakumovoleg</Authors>
+        <Company>abakumovoleg</Company>
+        <Description>Source generator for Dapper.Unnest package. Automatically generates extension methods to "unnest" collections of objects into arrays.</Description>
+        <PackageTags>dapper;source-generator;analyzer;bulk-operations</PackageTags>
+        <RepositoryUrl>https://github.com/abakumovoleg/dapper.unnested</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <DevelopmentDependency>true</DevelopmentDependency>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" PrivateAssets="all" />
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
 
 </Project>
