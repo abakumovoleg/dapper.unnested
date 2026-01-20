@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 
     <!-- NuGet Package Properties -->
-    <PackageId>DapperExtensions.Unnest</PackageId>
+    <PackageId>DapperUnnest</PackageId>
     <Version>1.0.1</Version>
     <Authors>abakumovoleg</Authors>
     <Company>abakumovoleg</Company>

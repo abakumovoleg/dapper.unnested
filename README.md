@@ -1,7 +1,7 @@
 # Dapper.Unnest.Generator
 
-[![NuGet](https://img.shields.io/nuget/v/Dapper.Unnest.svg)](https://www.nuget.org/packages/Dapper.Unnest/)
-[![NuGet](https://img.shields.io/nuget/dt/Dapper.Unnest.svg)](https://www.nuget.org/packages/Dapper.Unnest/)
+[![NuGet](https://img.shields.io/nuget/v/DapperUnnest.svg)](https://www.nuget.org/packages/DapperUnnest/)
+[![NuGet](https://img.shields.io/nuget/dt/DapperUnnest.svg)](https://www.nuget.org/packages/DapperUnnest/)
 
 A C# source generator that automatically generates extension methods to "unnest" collections of objects into arrays for each property. This is particularly useful for [Dapper](https://github.com/DapperLib/Dapper) bulk operations where you need to pass arrays of values for each column.
 
@@ -22,7 +22,7 @@ A C# source generator that automatically generates extension methods to "unnest"
 Install the NuGet package:
 
 ```bash
-dotnet add package Dapper.Unnest
+dotnet add package DapperUnnest
 ```
 
 The package includes both the attribute library and the source generator.

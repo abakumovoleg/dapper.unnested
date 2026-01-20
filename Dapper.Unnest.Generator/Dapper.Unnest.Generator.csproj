@@ -9,7 +9,7 @@
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 
         <!-- NuGet Package Properties for Analyzer -->
-        <PackageId>DapperExtensions.Unnest.Generator</PackageId>
+        <PackageId>DapperUnnest</PackageId>
         <Version>1.0.1</Version>
         <Authors>abakumovoleg</Authors>
         <Company>abakumovoleg</Company>
