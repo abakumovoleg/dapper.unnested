@@ -3,3 +3,5 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+Dapper.Unnest.Generator.sln.DotSettings.user
+.idea/
