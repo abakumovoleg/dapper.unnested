@@ -35,7 +35,7 @@ jobs:
       run: dotnet pack --configuration Release --no-build --output ./nupkgs
 
     - name: Publish Dapper.Unnest package to NuGet
-      run: dotnet nuget push "./nupkgs/Dapper.Unnest.*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push "./nupkgs/DapperExtensions.Unnest.*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
     - name: Create GitHub Release
       if: startsWith(github.ref, 'refs/tags/v')
@@ -49,11 +49,11 @@ jobs:
           ## What's Changed
 
           ### NuGet Package
-          - `Dapper.Unnest` - Complete package with attributes and source generator
+          - `DapperExtensions.Unnest` - Complete package with attributes and source generator
 
           ### Installation
           ```bash
-          dotnet add package Dapper.Unnest
+          dotnet add package DapperExtensions.Unnest
           ```
 
           ### Documentation
