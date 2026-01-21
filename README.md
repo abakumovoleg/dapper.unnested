@@ -88,12 +88,7 @@ public async Task BulkInsertUsers(IEnumerable<User> users)
         INSERT INTO Users (Email, Name, CreatedAt)
         SELECT Email, Name, CreatedAt
         FROM UNNEST(@Email, @Name, @CreatedAt) AS u(Email, Name, CreatedAt)",
-        new
-        {
-            Email = unnestable.Email,
-            Name = unnestable.Name,
-            CreatedAt = unnestable.CreatedAt
-        });
+        unnestable);
 }
 ```
 
