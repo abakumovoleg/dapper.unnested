@@ -1,4 +1,4 @@
-namespace Dapper.Unnest.Generator.Tests.Dtos;
+namespace Unnestable.Tests.Dtos;
 
 public class NestedClass
 {

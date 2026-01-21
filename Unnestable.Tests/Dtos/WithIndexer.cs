@@ -1,4 +1,6 @@
-namespace Dapper.Unnest.Generator.Tests.Dtos;
+using Dapper.Unnest.Generator;
+
+namespace Unnestable.Tests.Dtos;
 
 [Unnestable]
 public class WithIndexer

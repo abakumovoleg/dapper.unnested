@@ -226,12 +226,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 2. Run tests: `dotnet test`
 3. Build the solution: `dotnet build`
 
-### Running Tests
-
-```bash
-dotnet test Dapper.Unnest.Generator.Tests/Dapper.Unnest.Generator.Tests.csproj
-```
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

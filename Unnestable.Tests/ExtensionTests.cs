@@ -1,7 +1,7 @@
-﻿using Dapper.Unnest.Generator.Tests.Dtos;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Unnestable.Tests.Dtos;
 
-namespace Dapper.Unnest.Generator.Tests;
+namespace Unnestable.Tests;
 
 public class ExtensionTests
 {

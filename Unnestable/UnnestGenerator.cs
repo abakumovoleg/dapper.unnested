@@ -1,9 +1,9 @@
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Collections.Immutable;
 
-namespace Dapper.Unnest.Generator;
+namespace Unnestable;
 
 [Generator]
 public class UnnestGenerator : IIncrementalGenerator

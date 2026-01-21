@@ -9,18 +9,18 @@
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 
         <!-- NuGet Package Properties for Analyzer -->
-        <PackageId>Unnestable.Generator</PackageId>
-        <Version>1.0.6</Version>
+        <PackageId>Unnestable</PackageId>
+        <Version>1.0.7</Version>
         <Authors>abakumovoleg</Authors>
         <Company>abakumovoleg</Company>
-        <Description>Source generator for Dapper.Unnest package. Automatically generates extension methods to "unnest" collections of objects into arrays.</Description>
-        <PackageTags>dapper;source-generator;analyzer;bulk-operations</PackageTags>
-        <RepositoryUrl>https://github.com/abakumovoleg/dapper.unnested</RepositoryUrl>
+        <Description>A C# source generator that automatically generates extension methods to "unnest" collections of objects into arrays for each property. This is particularly useful for Dapper bulk operations where you need to pass arrays of values for each column.</Description>
+        <PackageTags>unnest;dapper;source-generator;analyzer;bulk-operations</PackageTags>
+        <RepositoryUrl>https://github.com/abakumovoleg/unnestable</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <DevelopmentDependency>true</DevelopmentDependency>
         <IncludeBuildOutput>false</IncludeBuildOutput>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -30,6 +30,10 @@
 
     <ItemGroup>
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\README.md" Pack="true" PackagePath="" />
     </ItemGroup>
 
 </Project>
